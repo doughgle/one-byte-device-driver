@@ -24,12 +24,9 @@ static void onebyte_exit(void);
 
 /* definition of file_operation structure */
 struct file_operations onebyte_fops = {
-  read:
-  onebyte_read,
-  write:
-  onebyte_write,
-  open:
-  onebyte_open,
+  read:    onebyte_read,
+  write:   onebyte_write,
+  open:    onebyte_open,
   release: onebyte_release
 };
 char *onebyte_data = NULL;
@@ -58,14 +55,13 @@ static int onebyte_init(void)
 {
   int result;
   // register the device
-  result = register_chrdev(MAJOR_NUMBER, "onebyte",
-  &onebyte_fops);
+  result = register_chrdev(MAJOR_NUMBER, "onebyte", &onebyte_fops);
   if (result < 0) {
     return result;
   }
 
   // allocate one byte of memory for storage
-  // kmalloc is just like malloc, the second parameter is// the type of memory to be allocated.
+  // kmalloc is just like malloc, the second parameter is the type of memory to be allocated.
   // To release the memory allocated by kmalloc, use kfree.
   onebyte_data = kmalloc(sizeof(char), GFP_KERNEL);
 
