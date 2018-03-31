@@ -72,8 +72,7 @@ static int onebyte_init(void)
   if (!onebyte_data) {
     onebyte_exit();
     // cannot allocate memory
-    // return no memory error, negative signify a
-    failure
+    // return no memory error, negative signify a failure
     return -ENOMEM;
   }
   // initialize the value to be X
