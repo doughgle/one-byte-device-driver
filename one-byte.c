@@ -45,7 +45,11 @@ ssize_t onebyte_read(struct file *filep, char *buf, size_t count, loff_t *f_pos)
 {
   static bool isDone;
 
-  // check length of buf
+  printk(KERN_ALERT "filep (%p) f_flags=%u", filep, filep->f_flags);
+  printk(KERN_ALERT "count: %lu", count);
+  printk(KERN_ALERT "f_pos (%p): %llu", f_pos, *f_pos);
+  printk(KERN_ALERT "onebyte_data (%p): %X", onebyte_data, *onebyte_data);
+
   if(isDone || onebyte_data == NULL || count < 1) {
     return 0;
   }
@@ -55,10 +59,6 @@ ssize_t onebyte_read(struct file *filep, char *buf, size_t count, loff_t *f_pos)
     return 0;
   }
 
-  printk(KERN_ALERT "filep (%p) f_flags=%u", filep, filep->f_flags);
-  printk(KERN_ALERT "count: %lu", count);
-  printk(KERN_ALERT "f_pos (%p): %llu", f_pos, *f_pos);
-  printk(KERN_ALERT "onebyte_data (%p): %X", onebyte_data, *onebyte_data);
   isDone = true;
   return 1;
 }
