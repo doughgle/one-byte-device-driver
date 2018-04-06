@@ -30,7 +30,7 @@ struct file_operations onebyte_fops = {
   release: onebyte_release
 };
 char *onebyte_data = NULL;
-static bool isDone = false;
+static bool isEmpty = false;
 
 int onebyte_open(struct inode *inode, struct file *filep)
 {
@@ -49,7 +49,7 @@ ssize_t onebyte_read(struct file *filep, char *buf, size_t count, loff_t *f_pos)
   printk(KERN_ALERT "%s:%d: ""f_pos (%p): %llu", __FUNCTION__, __LINE__, f_pos, *f_pos);
   printk(KERN_ALERT "%s:%d: ""onebyte_data (%p): %X", __FUNCTION__, __LINE__, onebyte_data, *onebyte_data);
 
-  if(isDone || onebyte_data == NULL || count < 1) {
+  if(isEmpty || onebyte_data == NULL || count < 1) {
     return 0;
   }
 
@@ -58,7 +58,7 @@ ssize_t onebyte_read(struct file *filep, char *buf, size_t count, loff_t *f_pos)
     return 0;
   }
 
-  isDone = true;
+  isEmpty = true;
   return 1;
 }
 
@@ -68,7 +68,7 @@ ssize_t onebyte_write(struct file *filep, const char *buf, size_t count, loff_t 
     return 0;
   }
 
-  isDone = false;
+  isEmpty = false;
   return 1;
 }
 
