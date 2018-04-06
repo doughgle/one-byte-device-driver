@@ -30,7 +30,7 @@ struct file_operations onebyte_fops = {
   release: onebyte_release
 };
 char *onebyte_data = NULL;
-static bool isEmpty = false;
+static volatile bool isEmpty = false;
 
 int onebyte_open(struct inode *inode, struct file *filep)
 {
