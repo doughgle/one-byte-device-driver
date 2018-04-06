@@ -44,12 +44,10 @@ int onebyte_release(struct inode *inode, struct file *filep)
 
 ssize_t onebyte_read(struct file *filep, char *buf, size_t count, loff_t *f_pos)
 {
-  static bool isDone;
-
-  printk(KERN_ALERT "filep (%p) f_flags=%u", filep, filep->f_flags);
-  printk(KERN_ALERT "count: %lu", count);
-  printk(KERN_ALERT "f_pos (%p): %llu", f_pos, *f_pos);
-  printk(KERN_ALERT "onebyte_data (%p): %X", onebyte_data, *onebyte_data);
+  printk(KERN_ALERT "%s:%d: ""filep (%p) f_flags=%u", __FUNCTION__, __LINE__, filep, filep->f_flags);
+  printk(KERN_ALERT "%s:%d: ""count: %lu", __FUNCTION__, __LINE__, count);
+  printk(KERN_ALERT "%s:%d: ""f_pos (%p): %llu", __FUNCTION__, __LINE__, f_pos, *f_pos);
+  printk(KERN_ALERT "%s:%d: ""onebyte_data (%p): %X", __FUNCTION__, __LINE__, onebyte_data, *onebyte_data);
 
   if(isDone || onebyte_data == NULL || count < 1) {
     return 0;
