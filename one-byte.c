@@ -64,12 +64,24 @@ ssize_t onebyte_read(struct file *filep, char *buf, size_t count, loff_t *f_pos)
 
 ssize_t onebyte_write(struct file *filep, const char *buf, size_t count, loff_t *f_pos)
 {
-  if(get_user(*onebyte_data, buf)) {
-    return 0;
+  int ret;
+
+  printk(KERN_ALERT "%s:%d: ""filep (%p) f_flags=%u", __FUNCTION__, __LINE__, filep, filep->f_flags);
+  printk(KERN_ALERT "%s:%d: ""count: %lu", __FUNCTION__, __LINE__, count);
+  printk(KERN_ALERT "%s:%d: ""f_pos (%p): %llu", __FUNCTION__, __LINE__, f_pos, *f_pos);
+  printk(KERN_ALERT "%s:%d: ""onebyte_data (%p): %X", __FUNCTION__, __LINE__, onebyte_data, *onebyte_data);
+
+  if(isEmpty) {
+    if(get_user(*onebyte_data, buf)) {
+      ret = 0;
+    }
+    isEmpty = false;
+    ret = 1;
+  } else {
+    ret = -ENOSPC;
   }
 
-  isEmpty = false;
-  return 1;
+  return ret;
 }
 
 static int onebyte_init(void)
