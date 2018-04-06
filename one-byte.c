@@ -30,6 +30,7 @@ struct file_operations onebyte_fops = {
   release: onebyte_release
 };
 char *onebyte_data = NULL;
+static bool isDone = false;
 
 int onebyte_open(struct inode *inode, struct file *filep)
 {
@@ -68,6 +69,8 @@ ssize_t onebyte_write(struct file *filep, const char *buf, size_t count, loff_t 
   if(get_user(*onebyte_data, buf)) {
     return 0;
   }
+
+  isDone = false;
   return 1;
 }
 
