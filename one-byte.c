@@ -44,11 +44,6 @@ int onebyte_release(struct inode *inode, struct file *filep)
 
 ssize_t onebyte_read(struct file *filep, char *buf, size_t count, loff_t *f_pos)
 {
-  printk(KERN_ALERT "%s:%d: ""filep (%p) f_flags=%u", __FUNCTION__, __LINE__, filep, filep->f_flags);
-  printk(KERN_ALERT "%s:%d: ""count: %lu", __FUNCTION__, __LINE__, count);
-  printk(KERN_ALERT "%s:%d: ""f_pos (%p): %llu", __FUNCTION__, __LINE__, f_pos, *f_pos);
-  printk(KERN_ALERT "%s:%d: ""onebyte_data (%p): %X", __FUNCTION__, __LINE__, onebyte_data, *onebyte_data);
-
   if(isEmpty || onebyte_data == NULL || count < 1) {
     return 0;
   }
@@ -65,11 +60,6 @@ ssize_t onebyte_read(struct file *filep, char *buf, size_t count, loff_t *f_pos)
 ssize_t onebyte_write(struct file *filep, const char *buf, size_t count, loff_t *f_pos)
 {
   int ret;
-
-  printk(KERN_ALERT "%s:%d: ""filep (%p) f_flags=%u", __FUNCTION__, __LINE__, filep, filep->f_flags);
-  printk(KERN_ALERT "%s:%d: ""count: %lu", __FUNCTION__, __LINE__, count);
-  printk(KERN_ALERT "%s:%d: ""f_pos (%p): %llu", __FUNCTION__, __LINE__, f_pos, *f_pos);
-  printk(KERN_ALERT "%s:%d: ""onebyte_data (%p): %X", __FUNCTION__, __LINE__, onebyte_data, *onebyte_data);
 
   if(isEmpty) {
     if(get_user(*onebyte_data, buf)) {
